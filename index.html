@@ -5,19 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para mi Niña ❤️</title>
     <style>
-        body { display : flex; flex-direction : column; align-items : center; justify-content : center; min-height : 100vh; margin : 0; font-family : 'Arial' , sans-serif; background-color : #ffe4e1; text-align : center; transition : 0.5s; overflow : hidden; }
-        h1 { color : #d63384; font-size : 2.5rem; padding : 0 20px; }
-        .buttons { margin-top : 20px; position : relative; width : 100%; height : 200px; }
-        button { padding : 15px 30px; font-size : 1.2rem; cursor : pointer; border : none; border-radius : 10px; transition : 0.3s; z-index : 10; }
-        #yesBtn { background-color : #ff4d6d; color : white; }
-        #noBtn { background-color : #6c757d; color : white; position : fixed; transition : 0.1s; left : 55%; }
-        .gif { width : 250px; height : auto; margin-bottom : 20px; border-radius : 15px; }
-        #escapeRoom { display : none; background-color : #1a1a1a; color : #00ff00; font-family : 'Courier New' , monospace; padding : 30px; border-radius : 10px; border : 2px solid #00ff00; width : 90%; max-width : 400px; }
-        input { background : transparent; border : none; border-bottom : 2px solid #00ff00; color : #00ff00; font-size : 1.2rem; text-align : center; margin-top : 20px; outline : none; width : 80%; }
-        .unlock-btn { background-color : #00ff00; color : black; margin-top : 20px; font-weight : bold; padding : 10px 20px; }
+        body { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; font-family: 'Arial', sans-serif; background-color: #ffe4e1; text-align: center; transition: 0.5s; overflow: hidden; }
+        h1 { color: #d63384; font-size: 2.5rem; padding: 0 20px; }
+        .buttons { margin-top: 20px; position: relative; width: 100%; height: 200px; }
+        button { padding: 15px 30px; font-size: 1.2rem; cursor: pointer; border: none; border-radius: 10px; transition: 0.3s; z-index: 10; }
+        #yesBtn { background-color: #ff4d6d; color: white; }
+        #noBtn { background-color: #6c757d; color: white; position: fixed; transition: 0.1s; left: 55%; }
+        .gif { width: 250px; height: auto; margin-bottom: 20px; border-radius: 15px; }
+        #escapeRoom { display: none; background-color: #1a1a1a; color: #00ff00; font-family: 'Courier New', monospace; padding: 30px; border-radius: 10px; border: 2px solid #00ff00; width: 90%; max-width: 400px; }
+        input { background: transparent; border: none; border-bottom: 2px solid #00ff00; color: #00ff00; font-size: 1.2rem; text-align: center; margin-top: 20px; outline: none; width: 80%; }
+        .unlock-btn { background-color: #00ff00; color: black; margin-top: 20px; font-weight: bold; padding: 10px 20px; }
     </style>
 </head>
 <body>
+
     <div id="invitacion">
         <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmZ6eGZ6eGZ6eGZ6eGZ6eGZ6eGZ6eGZ6eGZ6eGZ6eGZ6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpNwSULPk77/giphy.gif" class="gif" alt="Cute hearts">
         <h1>Will you be my Valentine? ❤️</h1>
@@ -33,4 +34,70 @@
         <br>
         <button id="submitBtn" class="unlock-btn" onclick="checkAnswer()">DESCIFRAR CÓDIGO</button>
         <p id="progress" style="margin-top: 20px; font-size: 0.8rem;"></p>
-        <h3 id="codeDisplay" style="display:none; color: gold;">DÍGITO:
+        <h3 id="codeDisplay" style="display:none; color: gold;">DÍGITO: <span id="digit"></span></h3>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        let isWaiting = false; 
+
+        noBtn.addEventListener('mouseover', () => {
+            const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+            const x = Math.max(20, Math.random() * maxX);
+            const y = Math.max(20, Math.random() * maxY);
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        });
+
+        yesBtn.addEventListener('click', () => {
+            document.getElementById('invitacion').style.display = 'none';
+            document.body.style.backgroundColor = '#000';
+            document.getElementById('escapeRoom').style.display = 'block';
+            loadChallenge();
+        });
+
+        let currentStep = 0;
+        const challenges = [
+            { q: "¿Cómo se llamaba el personaje principal que usabas cuando jugábamos It Takes Two?", a: "may", d: "5" },
+            { q: "¿Duración exacta en spotify de la primera canción que te dediqué?", a: "4:42", d: "2" },
+            { q: "¿Nombre de la primera película que fuimos a ver juntos?", a: "como entrenar a tu dragon", d: "8" },
+            { q: "Nombre del primer juego que jugamos juntos", a: "madison", d: "0" }
+        ];
+
+        function loadChallenge() {
+            document.getElementById('question').innerText = challenges[currentStep].q;
+            document.getElementById('progress').innerText = `Misión ${currentStep + 1} de ${challenges.length}`;
+            document.getElementById('answer').value = "";
+            document.getElementById('codeDisplay').style.display = 'none';
+            isWaiting = false; 
+        }
+
+        function checkAnswer() {
+            if (isWaiting) return; 
+
+            const userInput = document.getElementById('answer').value.toLowerCase().trim();
+            if (userInput === challenges[currentStep].a) {
+                isWaiting = true; 
+                document.getElementById('digit').innerText = challenges[currentStep].d;
+                document.getElementById('codeDisplay').style.display = 'block';
+                
+                setTimeout(() => {
+                    currentStep++;
+                    if (currentStep < challenges.length) {
+                        loadChallenge();
+                    } else {
+                        document.getElementById('escapeRoom').innerHTML = `
+                            <h2 style="color: #ff4d6d;">¡SISTEMA DESBLOQUEADO! ❤️</h2>
+                            <p style="color: white;">Chequea el artefacto que una vez me confiaste...</p>
+                        `;
+                    }
+                }, 3000);
+            } else {
+                alert("Respuesta incorrecta, inténtalo de nuevo.");
+            }
+        }
+    </script>
+</body>
+</html>
