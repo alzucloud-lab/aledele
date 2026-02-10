@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi Niña ❤️</title>
+    <style>
+        body { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; font-family: 'Arial', sans-serif; background-color: #ffe4e1; text-align: center; transition: 0.5s; overflow: hidden; }
+        h1 { color: #d63384; font-size: 2.5rem; padding: 0 20px; }
+        .buttons { margin-top: 20px; position: relative; width: 100%; height: 200px; }
+        button { padding: 15px 30px; font-size: 1.2rem; cursor: pointer; border: none; border-radius: 10px; transition: 0.3s; z-index: 10; }
+        #yesBtn { background-color: #ff4d6d; color: white; }
+        #noBtn { background-color: #6c757d; color: white; position: absolute; transition: 0.1s; left: 55%; }
+        .gif { width: 200px; margin-bottom: 20px; }
+
+        /* Estilos Escape Room */
+        #escapeRoom { display: none; background-color: #1a1a1a; color: #00ff00; font-family: 'Courier New', monospace; padding: 30px; border-radius: 10px; border: 2px solid #00ff00; width: 90%; max-width: 400px; }
+        input { background: transparent; border: none; border-bottom: 2px solid #00ff00; color: #00ff00; font-size: 1.2rem; text-align: center; margin-top: 20px; outline: none; width: 80%; }
+        .unlock-btn { background-color: #00ff00; color: black; margin-top: 20px; font-weight: bold; padding: 10px 20px; }
+    </style>
+</head>
+<body>
+
+    <div id="invitacion">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCBmcm9tX2dpZl9zZWFyY2gmY3Q9Zw/KztT2c4u8mYYUiCi7C/giphy.gif" class="gif">
+        <h1>Will you be my Valentine? ❤️</h1>
+        <div class="buttons">
+            <button id="yesBtn">Yes!</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <div id="escapeRoom">
+        <h2 id="question">Misión 1: ¿En qué ciudad fue nuestra primera cita?</h2>
+        <input type="text" id="answer" placeholder="Respuesta...">
+        <br>
+        <button class="unlock-btn" onclick="checkAnswer()">DESCIFRAR CÓDIGO</button>
+        <p id="progress" style="margin-top: 20px; font-size: 0.8rem;">Pregunta 1 de 3</p>
+        <h3 id="codeDisplay" style="display:none; color: gold;">DÍGITO: <span id="digit"></span></h3>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+
+        // FUNCIÓN PARA QUE EL BOTÓN "NO" SE MUEVA
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        });
+
+        // Al decir que SÍ
+        yesBtn.addEventListener('click', () => {
+            document.getElementById('invitacion').style.display = 'none';
+            document.body.style.backgroundColor = '#000';
+            document.getElementById('escapeRoom').style.display = 'block';
+        });
+
+        // LÓGICA DEL ESCAPE ROOM
+        let currentStep = 0;
+        const challenges = [
+            { q: "¿Cómo se llamaba el personaje principal que usabas cuando jugábamos It Takes Two?", a: "May", d: "5" },
+            { q: "¿Duracion exacta en spotify de la primera cancion que te dediqué?", a: "4:42", d: "2" },
+            { q: "¿Nombre de la primera película que fuimos a ver juntos?", a: "Cómo entrenar a tu dragón", d: "8" },
+            { q: "Nombre del primer juego que jugamos juntos", a: "Madison", d: "0" }
+        ];
+
+        function checkAnswer() {
+            const userInput = document.getElementById('answer').value.toLowerCase().trim();
+            const display = document.getElementById('codeDisplay');
+            const digit = document.getElementById('digit');
+
+            if (userInput === challenges[currentStep].a) {
+                digit.innerText = challenges[currentStep].d;
+                display.style.display = 'block';
+                
+                setTimeout(() => {
+                    currentStep++;
+                    if (currentStep < challenges.length) {
+                        document.getElementById('question').innerText = `Misión ${currentStep+1}: ${challenges[currentStep].q}`;
+                        document.getElementById('answer').value = "";
+                        document.getElementById('progress').innerText = `Pregunta ${currentStep+1} de ${challenges.length}`;
+                        display.style.display = 'none';
+                    } else {
+                        // MENSAJE FINAL AL TERMINAR TODO
+                        document.getElementById('escapeRoom').innerHTML = `
+                            <h2 style="color: #ff4d6d;">¡SISTEMA DESBLOQUEADO! ❤️</h2>
+                            <p style="color: white;">Felicidades, amor. Has superado todas las pruebas.</p>
+                            <p style="color: gold; font-size: 1.5rem;">Usa los números que anotaste para abrir tu regalo físico.</p>
+                            <p style="color: #ff4d6d; margin-top: 20px;">Chequea donde me confiaste un artefacto, aunque no le di gran uso...</p>
+                        `;
+                    }
+                }, 3000);
+            } else {
+                alert("ACCESO DENEGADO. Intenta otra vez, amor.");
+            }
+        }
+    </script>
+</body>
+</html>
