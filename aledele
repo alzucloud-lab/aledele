@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ser mi Valentín?</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #ffe4e1;
+            text-align: center;
+        }
+        h1 { color: #d63384; font-size: 3rem; }
+        .buttons { margin-top: 20px; position: relative; width: 300px; height: 100px; }
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+        #yesBtn { background-color: #ff4d6d; color: white; }
+        #noBtn {
+            background-color: #6c757d;
+            color: white;
+            position: absolute;
+        }
+        .gif { width: 200px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCBmcm9tX2dpZl9zZWFyY2gmY3Q9Zw/KztT2c4u8mYYUiCi7C/giphy.gif" alt="Cute Cat" class="gif">
+    
+    <h1>Will you be my Valentine? ❤️</h1>
+
+    <div class="buttons">
+        <button id="yesBtn">Yes!</button>
+        <button id="noBtn">No</button>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+
+        // Función para mover el botón "No"
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        });
+
+        // Mensaje al darle a "Yes"
+        yesBtn.addEventListener('click', () => {
+            alert('Felicidades amor, gracias por ser parte de mi vida y estar para mi tanto en lo bueno como en lo malo. Que Dios te bendiga y proteja a ti y a tu familia para siempre, muchos años más por venir y espero que cada uno sea contigo, te amo.');
+            // Opcional: Redirigir a un video de YouTube o canción
+            // window.location.href = "https://www.youtube.com/watch?v=tu_cancion_favorita";
+        });
+    </script>
+</body>
+</html>
