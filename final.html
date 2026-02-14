@@ -13,13 +13,13 @@
             min-height: 100vh;
             margin: 0;
             font-family: 'Arial', sans-serif;
-            background-color: #1a1a1a; /* Fondo oscuro */
-            color: #00ff00; /* Texto verde de hacking */
+            background-color: #1a1a1a;
+            color: #00ff00;
             text-align: center;
             overflow: hidden;
         }
         h1 {
-            color: #d63384; /* Color de tu tema */
+            color: #d63384;
             font-size: 2rem;
             margin-bottom: 20px;
         }
@@ -33,7 +33,7 @@
             padding: 10px;
             margin: 20px 0;
             outline: none;
-            width: 150px; /* Ancho para 4 dígitos */
+            width: 150px;
         }
         button {
             background-color: #00ff00;
@@ -50,15 +50,25 @@
             background-color: #00cc00;
         }
         #finalMessage {
-            display: none; /* Oculto hasta que el código sea correcto */
+            display: none;
             margin-top: 30px;
-            font-size: 1.8rem;
-            color: #ff4d6d; /* Color rojo de Valentine */
+            padding: 20px;
         }
-        #finalHint {
-            margin-top: 20px;
+        .congrats {
+            font-size: 1.8rem;
+            color: #ff4d6d;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .hint {
             font-size: 1.2rem;
-            color: white; /* Blanco para el texto del hint */
+            color: white;
+            margin-bottom: 20px;
+        }
+        .final-gif {
+            width: 280px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(214, 51, 132, 0.5);
         }
     </style>
 </head>
@@ -66,20 +76,20 @@
 
     <div id="codeEntry">
         <h1>¡ÚLTIMA PRUEBA!</h1>
-        <p>Introduce el código de 4 dígitos:</p>
+        <p>Introduce el código de 4 dígitos para terminar la misión:</p>
         <input type="text" id="finalCodeInput" maxlength="4" placeholder="XXXX">
         <br>
         <button onclick="checkFinalCode()">DESBLOQUEAR</button>
     </div>
 
     <div id="finalMessage">
-        <p>¡FELICIDADES! HAS COMPLETADO LA MISIÓN. ❤️</p>
-        <p id="finalHint">Chequea cerca del objeto que una vez me confiaste...</p>
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjU5azJjZ2U0ZjVpbHFvY3BkcWRmeDkxemFvYmZ5MjhrMmhsaWVzYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lqSDx0jX1z4jK1b0aV/giphy.gif" alt="Regalo final" style="width:200px; margin-top: 20px; border-radius: 10px;">
+        <p class="congrats">¡FELICIDADES! HAS COMPLETADO LA MISIÓN. ❤️</p>
+        <p class="hint">Chequea cerca del objeto que una vez me confiaste...</p>
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzhqZ3ZidGZ6Z3ZidGZ6Z3ZidGZ6Z3ZidGZ6Z3ZidGZ6Z3ZidGZ6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/K95KqvHSA9V40O6oR2/giphy.gif" alt="Celebración" class="final-gif">
     </div>
 
     <script>
-        const correctCode = "5280"; // El código final de 4 dígitos (Misión 1: 5, Misión 2: 2, Misión 3: 8, Misión 4: 0)
+        const correctCode = "5280"; 
 
         function checkFinalCode() {
             const userInput = document.getElementById('finalCodeInput').value.trim();
