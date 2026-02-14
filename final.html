@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Código Final Secreto</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a1a; /* Fondo oscuro */
+            color: #00ff00; /* Texto verde de hacking */
+            text-align: center;
+            overflow: hidden;
+        }
+        h1 {
+            color: #d63384; /* Color de tu tema */
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #00ff00;
+            color: #00ff00;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 10px;
+            margin: 20px 0;
+            outline: none;
+            width: 150px; /* Ancho para 4 dígitos */
+        }
+        button {
+            background-color: #00ff00;
+            color: black;
+            font-weight: bold;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #00cc00;
+        }
+        #finalMessage {
+            display: none; /* Oculto hasta que el código sea correcto */
+            margin-top: 30px;
+            font-size: 1.8rem;
+            color: #ff4d6d; /* Color rojo de Valentine */
+        }
+        #finalHint {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: white; /* Blanco para el texto del hint */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="codeEntry">
+        <h1>¡ÚLTIMA PRUEBA!</h1>
+        <p>Introduce el código de 4 dígitos:</p>
+        <input type="text" id="finalCodeInput" maxlength="4" placeholder="XXXX">
+        <br>
+        <button onclick="checkFinalCode()">DESBLOQUEAR</button>
+    </div>
+
+    <div id="finalMessage">
+        <p>¡FELICIDADES! HAS COMPLETADO LA MISIÓN. ❤️</p>
+        <p id="finalHint">Chequea cerca del objeto que una vez me confiaste...</p>
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjU5azJjZ2U0ZjVpbHFvY3BkcWRmeDkxemFvYmZ5MjhrMmhsaWVzYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lqSDx0jX1z4jK1b0aV/giphy.gif" alt="Regalo final" style="width:200px; margin-top: 20px; border-radius: 10px;">
+    </div>
+
+    <script>
+        const correctCode = "5280"; // El código final de 4 dígitos (Misión 1: 5, Misión 2: 2, Misión 3: 8, Misión 4: 0)
+
+        function checkFinalCode() {
+            const userInput = document.getElementById('finalCodeInput').value.trim();
+
+            if (userInput === correctCode) {
+                document.getElementById('codeEntry').style.display = 'none';
+                document.getElementById('finalMessage').style.display = 'block';
+            } else {
+                alert("Código incorrecto. ¡Vuelve a revisar tus pistas!");
+            }
+        }
+    </script>
+</body>
+</html>
